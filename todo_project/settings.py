@@ -98,6 +98,7 @@ CSRF_TRUSTED_ORIGINS = [
     "https://*.codeanyapp.com",
     "https://*.herokuapp.com",
     "https://8000-saraabbasin-todolistdja-6q5hed5zds4.ws-eu111.gitpod.io"
+    'https://8000-saraabbasin-todolistdja-6q5hed5zds4.ws-eu114.gitpod.io'
 ]
 
 # Password validation
