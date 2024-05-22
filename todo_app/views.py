@@ -7,6 +7,7 @@ from .forms import TodoItemForm
 def home_view(request):
     return render(request, 'todo_app/home.html')
 
+
 @login_required(login_url='/accounts/login')
 def todo_list_view(request):
     user = request.user
@@ -21,9 +22,10 @@ def todo_list_view(request):
             else:
                 TodoItem.objects.filter(id = todo_item.id).update(checked=False)
         return redirect('/list')
-        
+
 
     return render(request, 'todo_app/todo_list.html', {'todolist':query})
+
 
 @login_required(login_url='/accounts/login')
 def todo_item_create(request):
@@ -37,3 +39,15 @@ def todo_item_create(request):
             return redirect('todo_app:todo_list')
     form = TodoItemForm()
     return render(request, 'todo_app/create_todo_item.html', {'form':form})
+
+
+def delete_todo_item(request, id):
+    try:
+        item = TodoItem.objects.get(id = id)
+    except:
+        return redirect('todoapp:todo_list')
+    if item.owner == request.user:
+        item.delete()
+        return redirect('todoapp:todo_list')
+    else:
+        return redirect('todoapp:todo_list')
