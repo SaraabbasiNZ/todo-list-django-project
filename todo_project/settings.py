@@ -27,9 +27,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['8000-saraabbasin-todolistdja-4t58nmzrwty.ws-eu114.gitpod.io',
+                '8080-saraabbasin-todolistdja-4t58nmzrwty.ws-eu114.gitpod.io',
                 '.herokuapp.com',
                 '127.0.0.1', 
                 'localhost']
@@ -96,7 +97,7 @@ DATABASES = {
 
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeanyapp.com",
-    "https://*.herokuapp.com"
+    "https://*.herokuapp.com",
 ]
 
 # Password validation
@@ -142,7 +143,6 @@ import os
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
-
     os.path.join(BASE_DIR,'static'),
 )
 
