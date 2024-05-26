@@ -22,9 +22,10 @@ def todo_list_view(request):
             else:
                 TodoItem.objects.filter(id = todo_item.id).update(checked=False)
         return redirect('/list')
+    
+    todo_list_len = len(query)
 
-
-    return render(request, 'todo_app/todo_list.html', {'todolist':query})
+    return render(request, 'todo_app/todo_list.html', {'todolist':query,'todo_list_len':todo_list_len})
 
 
 @login_required(login_url='/accounts/login')

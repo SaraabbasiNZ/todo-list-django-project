@@ -4,25 +4,38 @@
 
 {% block content %}
 
-<form method="POST">
-    <ul class="list-group">
-        {% for todoitem in todo_list %}
-        
-            <li class="list-group-item">
-              {% if todoitem.checked %}
-              <input class="form-check-input me-1" type="checkbox" name="checked" checked value="{{todoitem.id}}" id="firstCheckbox">
-              {% else %}
-              <input class="form-check-input me-1" type="checkbox" name="checked" value="{{todoitem.id}}" id="firstCheckbox">
-              {% endif %}
-              {{todoitem.title}}
-              <a class='btn btn-danger' href="{% url 'todo_app:todo_item_delete' todoitem.id %}">X</a>
-            </li>
-            
-        {% endfor %}
-        </ul>
-        {% csrf_token %}
-        <button class='btn btn-primary' type="submit">submit</button>
-        <a href="/create">create new item</a>
-</form>
+<div class="list-container">
+  {% if todo_list_len == 0 %}
+  <div>
+    <h3>nothing is here ...</h3>
+    <a href="{% url 'todo_app:todo_item_create' %}">You can add a task here</a>
+  </div>
+  {% else %}
+  <div class="todo-list-container">
+    <form method="POST">
+      <ul class="list-group">
+          {% for todoitem in todolist %}
+          
+              <li class="list-group-item">
+                {% if todoitem.checked %}
+                <input class="form-check-input me-1" type="checkbox" name="checked" checked value="{{todoitem.id}}" id="firstCheckbox">
+                {% else %}
+                <input class="form-check-input me-1" type="checkbox" name="checked" value="{{todoitem.id}}" id="firstCheckbox">
+                {% endif %}
+                {{todoitem.title}}
+                <a class='btn btn-danger' href="{% url 'todo_app:todo_item_delete' todoitem.id %}">X</a>
+              </li>
+              
+          {% endfor %}
+          </ul>
+          {% csrf_token %}
+          <button class='btn btn-primary' type="submit">submit</button>
+          <a href="/create">create new item</a>
+  </form>
+  </div>
+  {% endif %}
+</div>
+
+
 
 {% endblock %}

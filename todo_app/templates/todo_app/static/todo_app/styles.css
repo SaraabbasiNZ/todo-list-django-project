@@ -5,3 +5,11 @@
   box-sizing: border-box;
   padding: 0;
 }
+
+.list-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
