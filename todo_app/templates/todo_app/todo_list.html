@@ -42,13 +42,26 @@
           </ul>
       </div>
           {% csrf_token %}
-          <button class='btn btn-primary' type="submit">submit</button>
-          <a href="/create">create new item</a>
+          <button class='btn btn-primary' id="print_paper"><i class="bi bi-printer-fill"></i></button>
+          <a href="/create">Create new item</a>
   </form>
   </div>
   {% endif %}
 </div>
 
-
+<script>
+  let check_input = document.getElementsByName('checked');
+  let form = document.getElementById('todo-list-form')
+  let print_btn = document.getElementById('print-paper')
+  console.log(check_input);
+  check_input.forEach(element => {
+    element.addEventListener('click', function(){
+      form.submit()
+    })
+  });
+  print_btn.addEventListener('click',function(){
+    print()
+  })
+</script>
 
 {% endblock %}
