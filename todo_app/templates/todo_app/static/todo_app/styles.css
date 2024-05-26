@@ -15,6 +15,7 @@
   width: 70%;
   padding-top: 30px;
 }
+
 .create-todo-form {
   display: flex;
   flex-wrap: wrap;
@@ -46,6 +47,11 @@
   justify-content: space-between;
 }
 
+.delete-todo-item {
+  text-align: end;
+  flex-grow: 1;
+}
+
 .list-container {
   display: flex;
   width: 100%;
@@ -62,16 +68,12 @@
   margin-right: 10px;
 }
 
-.job-text h6 {
-  font-size: 17px;
-  margin: 1px 0;
-  margin-left: 40px;
+.todo-item-action {
+  display: flex;
 }
 
-.job-text p {
-  font-size: 11px;
-  margin: 1px 0;
-  margin-left: 40px;
+.todo-item-action a {
+  margin-right: 5px;
 }
 
 .job-done-text {
@@ -82,5 +84,23 @@
 
 .job-done-input:checked {
   background-color: #8c8c8c;
+}
+
+.job-text {
+  /* display: flex;
+  justify-content: center;
+  align-items: baseline; */
+}
+
+.job-text h6 {
+  font-size: 17px;
+  margin: 1px 0;
+  margin-left: 40px;
+}
+
+.job-text p {
+  font-size: 11px;
+  margin: 1px 0;
+  margin-left: 40px;
 }
 
