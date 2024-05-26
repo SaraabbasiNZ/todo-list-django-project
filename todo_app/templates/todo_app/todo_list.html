@@ -12,22 +12,34 @@
   </div>
   {% else %}
   <div class="todo-list-container">
-    <form method="POST">
-      <ul class="list-group">
+    <form method="POST" action="{% url 'todo_app:todo_list' %}" id="todo-list-form">
+      <div class="todo-list">
+        <ul class="list-group">
           {% for todoitem in todolist %}
-          
-              <li class="list-group-item">
-                {% if todoitem.checked %}
-                <input class="form-check-input me-1" type="checkbox" name="checked" checked value="{{todoitem.id}}" id="firstCheckbox">
-                {% else %}
-                <input class="form-check-input me-1" type="checkbox" name="checked" value="{{todoitem.id}}" id="firstCheckbox">
-                {% endif %}
-                {{todoitem.title}}
-                <a class='btn btn-danger' href="{% url 'todo_app:todo_item_delete' todoitem.id %}">X</a>
+              <li class="list-group-item todo-item">
+                <div class="todo-item-content">
+                  {% if todoitem.checked %}
+                  <input class="check-input form-check-input job-done-input" type="checkbox" name="checked" checked value="{{todoitem.id}}" id="firstCheckbox">
+                  <div class="job-done-text job-text">
+                    <h6>{{todoitem.title}}</h6>
+                    <p>{{todoitem.date}}</p>
+                  </div>
+                  {% else %}
+                  <input class="check-input form-check-input me-1" type="checkbox" name="checked" value="{{todoitem.id}}" id="firstCheckbox">
+                  <div class="job-undone-text job-text">
+                    <h6>{{todoitem.title}}</h6>
+                    <p>{{todoitem.date}}</p>
+                  </div>
+                  {% endif %}
+                  <div class="todo-item-action">
+                    <a class='btn btn-danger' href="{% url 'todo_app:todo_item_delete' todoitem.id %}"><i class="bi bi-trash3-fill"></i></a>
+                  </div>
+                </div>
               </li>
               
           {% endfor %}
           </ul>
+      </div>
           {% csrf_token %}
           <button class='btn btn-primary' type="submit">submit</button>
           <a href="/create">create new item</a>
