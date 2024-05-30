@@ -38,8 +38,9 @@
                 </div>
               </li>
           {% endfor %}
+          <a class='btn btn-light mt-3' href="{% url 'todo_app:todo_item_create' %}"><i class="bi bi-plus"></i> Add new task</a>
         </ul>
-        <a class='btn btn-light mt-3' href="{% url 'todo_app:todo_item_create' %}"><i class="bi bi-plus"></i> Add new task</a>
+        
       </div>
       {% csrf_token %}
       <button class='btn btn-primary mt-3' id="print-paper" type="button"><i class="bi bi-printer-fill"></i></button>
