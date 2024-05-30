@@ -54,13 +54,25 @@ def edit_todo_item(request, id):
     return render(request, 'todo_app/edit_todo_item.html', {'form': form})
 
 
+#def delete_todo_item(request, id):
+#    try:
+#        item = TodoItem.objects.get(id = id)
+#    except:
+#        return redirect('todo_app:todo_list')
+#    if item.owner == request.user:
+#        item.delete()
+#        return redirect('todo_app:todo_list')
+#    else:
+#        return redirect('todo_app:todo_list')
+
 def delete_todo_item(request, id):
-    try:
-        item = TodoItem.objects.get(id = id)
-    except:
-        return redirect('todo_app:todo_list')
-    if item.owner == request.user:
-        item.delete()
-        return redirect('todo_app:todo_list')
+    item = get_object_or_404(TodoItem, id=id)
+
+    if request.method == 'POST':
+        if item.owner == request.user:
+            item.delete()
+            return redirect('todo_app:todo_list')
+        else:
+            return redirect('todo_app:todo_list')
     else:
-        return redirect('todo_app:todo_list')
+        return render(request, 'todo_app/confirm_delete.html', {'item': item})

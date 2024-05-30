@@ -7,12 +7,12 @@
         {% csrf_token %}
         <div class='input-container'>
             <label for="id_title">{{ form.title.label }}</label>
-            {{ form.title }}
+            <input class="form-control" type="text" name="title" required id="id_title">
             <p class='helper-text'>Edit your todo item</p>
         </div>
         <div class='input-container'>
             <label for="id_date">{{ form.date.label }}</label>
-            {{ form.date }}
+            <input class="form-control" type="datetime-local" name="date" id="id_date">
             <p class='helper-text'>Edit the date and time for your task if needed. Not required!</p>
         </div>
         <button class='btn btn-primary' type="submit">Save Changes</button>
