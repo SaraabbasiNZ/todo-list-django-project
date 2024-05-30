@@ -37,7 +37,8 @@ def todo_item_create(request):
             instance.owner = user
             instance.save()
             return redirect('todo_app:todo_list')
-    form = TodoItemForm()
+    else:
+        form = TodoItemForm()
     return render(request, 'todo_app/create_todo_item.html', {'form':form})
 
 

@@ -13,6 +13,9 @@
         <div class='input-container'>
             <label for="id_date">{{ form.date.label }}</label>
             <input class="form-control" type="datetime-local" name="date" id="id_date">
+            {% for error in form.date.errors %}
+            <p class='error-msg'>{{ error }}</p>
+            {% endfor %}
             <p class='helper-text'>Edit the date and time for your task if needed. Not required!</p>
         </div>
         <button class='btn btn-primary' type="submit">Save Changes</button>

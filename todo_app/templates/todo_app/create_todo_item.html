@@ -4,6 +4,7 @@
 <div class="container create-form-container">
     <h1>Create</h1>
     <form class="create-todo-form" action="" method="POST">
+        {% csrf_token %}
         <div class='input-container'>
             <label for="id_title">{{form.title.label}}</label>
             <input class="form-control" type="text" name="title" required id="id_title">
@@ -12,10 +13,13 @@
         <div class='input-container'>
             <label for="id_date">{{form.date.label}}</label>
             <input class="form-control" type="datetime-local" name="date" id="id_date">
+            {% for error in form.date.errors %}
+            <p class='error-msg'>{{ error }}</p>
+            {% endfor %}
             <p class='helper-text'>Here you can pick a date and time for your task. Not required!</p>
         </div>
     <button class='btn btn-primary' type="submit">Add</button>
-    {% csrf_token %}
+    
     </form>
 </div>
 {% endblock %}
