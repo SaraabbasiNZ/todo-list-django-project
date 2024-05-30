@@ -4,4 +4,4 @@ from .models import TodoItem
 class TodoItemForm(forms.ModelForm):
     class Meta:
         model = TodoItem
-        fields = ['title','date']
+        fields = ['title', 'checked','date']

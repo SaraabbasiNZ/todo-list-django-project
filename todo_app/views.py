@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import TodoItem
 from django.contrib.auth.decorators import login_required
 from .forms import TodoItemForm
@@ -24,8 +24,7 @@ def todo_list_view(request):
         return redirect('/list')
     
     todo_list_len = len(query)
-
-    return render(request, 'todo_app/todo_list.html', {'todolist':query,'todo_list_len':todo_list_len})
+    return render(request, 'todo_app/todo_list.html', {'todolist': query,'todo_list_len': todo_list_len})
 
 
 @login_required(login_url='/accounts/login')
@@ -40,6 +39,19 @@ def todo_item_create(request):
             return redirect('todo_app:todo_list')
     form = TodoItemForm()
     return render(request, 'todo_app/create_todo_item.html', {'form':form})
+
+
+@login_required(login_url='/accounts/login')
+def edit_todo_item(request, id):
+    todo_item = get_object_or_404(TodoItem, id=id, owner=request.user)
+    if request.method == 'POST':
+        form = TodoItemForm(request.POST, instance=todo_item)
+        if form.is_valid():
+            form.save()
+            return redirect('todo_app:todo_list')
+    else:
+        form = TodoItemForm(instance=todo_item)
+    return render(request, 'todo_app/edit_todo_item.html', {'form': form})
 
 
 def delete_todo_item(request, id):

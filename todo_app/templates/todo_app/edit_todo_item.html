@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Edit Todo Item{% endblock %}
+{% block content %}
+<div class="container edit-form-container">
+    <h1>Edit Todo Item</h1>
+    <form class="edit-todo-form" method="POST">
+        {% csrf_token %}
+        <div class='input-container'>
+            <label for="id_title">{{ form.title.label }}</label>
+            {{ form.title }}
+            <p class='helper-text'>Edit your todo item</p>
+        </div>
+        <div class='input-container'>
+            <label for="id_date">{{ form.date.label }}</label>
+            {{ form.date }}
+            <p class='helper-text'>Edit the date and time for your task if needed. Not required!</p>
+        </div>
+        <button class='btn btn-primary' type="submit">Save Changes</button>
+    </form>
+</div>
+{% endblock %}

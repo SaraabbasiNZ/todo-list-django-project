@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} todos list {% endblock %}
+{% block title %}Todo List{% endblock %}
 
 {% block content %}
 
@@ -34,33 +34,34 @@
                 </div>
                 <div class="todo-item-action">
                   <a class='btn btn-danger' href="{% url 'todo_app:todo_item_delete' todoitem.id %}"><i class="bi bi-trash3-fill"></i></a>
-                  <a class='btn btn-secondary' href="{% url 'todo_app:todo_item_delete' todoitem.id %}"><i class="bi bi-pen"></i></a>
+                  <a class='btn btn-secondary' href="{% url 'todo_app:todo_item_edit' todoitem.id %}"><i class="bi bi-pen"></i></a>
                 </div>
               </li>
           {% endfor %}
-          <a class='btn btn-light' href="/create"><i class="bi bi-plus"></i> Add new task</a>
         </ul>
+        <a class='btn btn-light mt-3' href="{% url 'todo_app:todo_item_create' %}"><i class="bi bi-plus"></i> Add new task</a>
       </div>
-          {% csrf_token %}
-          <button class='btn btn-primary' id="print_paper"><i class="bi bi-printer-fill"></i></button>
+      {% csrf_token %}
+      <button class='btn btn-primary mt-3' id="print-paper" type="button"><i class="bi bi-printer-fill"></i></button>
   </form>
   </div>
   {% endif %}
 </div>
 
 <script>
-  let check_input = document.getElementsByName('checked');
-  let form = document.getElementById('todo-list-form')
-  let print_btn = document.getElementById('print-paper')
-  console.log(check_input);
-  check_input.forEach(element => {
-    element.addEventListener('click', function(){
-      form.submit()
-    })
+  let checkInputs = document.querySelectorAll('input[name="checked"]');
+  let form = document.getElementById('todo-list-form');
+  let printBtn = document.getElementById('print-paper');
+
+  checkInputs.forEach(input => {
+    input.addEventListener('click', function(){
+      form.submit();
+    });
   });
-  print_btn.addEventListener('click',function(){
-    print()
-  })
+
+  printBtn.addEventListener('click', function(){
+    print();
+  });
 </script>
 
 {% endblock %}
