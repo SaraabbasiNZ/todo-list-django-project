@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['8000-saraabbasin-todolistdja-4t58nmzrwty.ws-eu114.gitpod.io',
                 '8080-saraabbasin-todolistdja-4t58nmzrwty.ws-eu114.gitpod.io',
@@ -98,6 +98,7 @@ DATABASES = {
 CSRF_TRUSTED_ORIGINS = [
     "https://*.codeanyapp.com",
     "https://*.herokuapp.com",
+    "https://8000-saraabbasin-todolistdja-4t58nmzrwty.ws-eu114.gitpod.io",
 ]
 
 # Password validation

@@ -58,9 +58,9 @@ def delete_todo_item(request, id):
     try:
         item = TodoItem.objects.get(id = id)
     except:
-        return redirect('todoapp:todo_list')
+        return redirect('todo_app:todo_list')
     if item.owner == request.user:
         item.delete()
-        return redirect('todoapp:todo_list')
+        return redirect('todo_app:todo_list')
     else:
-        return redirect('todoapp:todo_list')
+        return redirect('todo_app:todo_list')
