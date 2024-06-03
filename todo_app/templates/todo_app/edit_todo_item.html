@@ -11,6 +11,11 @@
             <p class='helper-text'>Edit your todo item</p>
         </div>
         <div class='input-container'>
+            <label for="id_description">{{ form.description.label }}</label>
+            <textarea class="form-control" name="description" id="id_description">{{ form.instance.description }}</textarea>
+            <p class='helper-text'>Edit the description for your task if needed. Optional.</p>
+        </div>
+        <div class='input-container'>
             <label for="id_date">{{ form.date.label }}</label>
             <input class="form-control" type="datetime-local" name="date" value="{% if form.instance.date %}{{ form.instance.date|date:'Y-m-d\TH:i' }}{% endif %}" id="id_date">
             {% for error in form.date.errors %}

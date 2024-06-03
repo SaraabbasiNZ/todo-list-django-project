@@ -5,7 +5,7 @@ from .models import TodoItem
 class TodoItemForm(forms.ModelForm):
     class Meta:
         model = TodoItem
-        fields = ['title', 'checked', 'date']
+        fields = ['title', 'description', 'checked', 'date']
 
     def clean_date(self):
         date = self.cleaned_data.get("date")

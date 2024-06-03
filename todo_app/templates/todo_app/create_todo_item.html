@@ -11,6 +11,11 @@
             <p class='helper-text'>Please write your todo</p>
         </div>
         <div class='input-container'>
+            <label for="id_description">{{ form.description.label }}</label>
+            <textarea class="form-control" name="description" id="id_description"></textarea>
+            <p class='helper-text'>Enter a description for your task (optional)</p>
+        </div>
+        <div class='input-container'>
             <label for="id_date">{{form.date.label}}</label>
             <input class="form-control" type="datetime-local" name="date" id="id_date">
             {% for error in form.date.errors %}
@@ -19,6 +24,7 @@
             <p class='helper-text'>Here you can pick a date and time for your task. Not required!</p>
         </div>
     <button class='btn btn-primary' type="submit">Add</button>
+    <a href="{% url 'todo_app:todo_list' %}" class="btn btn-secondary">Cancel</a>
     
     </form>
 </div>
