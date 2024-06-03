@@ -130,3 +130,23 @@
   margin-left: 40px;
 }
 
+/* Confirm_delete.html */
+.confirm-delete-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 200px;
+}
+
+.confirm-delete-container h1 {
+  margin-bottom: 40px;
+}
+
+.confirm-delete-container form {
+  display: flex;
+  align-items: center;
+}
+
+.confirm-delete-container button {
+  margin-right: 10px;
+}
