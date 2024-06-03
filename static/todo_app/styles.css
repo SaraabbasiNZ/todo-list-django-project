@@ -6,6 +6,7 @@
   padding: 0;
 }
 
+/* create.html */
 .create-form-container {
   display: flex;
   flex-direction: column;
@@ -33,6 +34,31 @@
   color: #919191;
 }
 
+.create-todo-form button {
+  margin-right: 10px;
+}
+
+/* Edit_todo.html */
+.edit-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+  width: 70%;
+  padding-top: 30px;
+}
+
+.edit-todo-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.edit-todo-form button {
+  margin-right: 10px;
+}
+
+/* Todo_list.html */
 .todo-list-container {
   width: 100%;
 }

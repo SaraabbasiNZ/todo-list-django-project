@@ -20,9 +20,11 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{% url 'todo_app:home' %}">Home</a>
+              </li>
+              <li class="nav-item">
                 <a class="nav-link active" aria-current="page" href="{% url 'todo_app:todo_list' %}">Todo List</a>
               </li>
-              
               <li class="nav-item">
                 {% if user.is_authenticated %}
                 <form action='{% url "accounts:logout" %}' method="POST">
