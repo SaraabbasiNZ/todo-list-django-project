@@ -7,12 +7,12 @@
         {% csrf_token %}
         <div class='input-container'>
             <label for="id_title">{{ form.title.label }}</label>
-            <input class="form-control" type="text" name="title" required id="id_title">
+            <input class="form-control" type="text" name="title" value="{{ form.instance.title }}" required id="id_title">
             <p class='helper-text'>Edit your todo item</p>
         </div>
         <div class='input-container'>
             <label for="id_date">{{ form.date.label }}</label>
-            <input class="form-control" type="datetime-local" name="date" id="id_date">
+            <input class="form-control" type="datetime-local" name="date" value="{% if form.instance.date %}{{ form.instance.date|date:'Y-m-d\TH:i' }}{% endif %}" id="id_date">
             {% for error in form.date.errors %}
             <p class='error-msg'>{{ error }}</p>
             {% endfor %}
