@@ -112,6 +112,10 @@
   background-color: #8c8c8c;
 }
 
+.todo-date {
+  color: #0b5ed7;
+}
+
 .job-text {
   /* display: flex;
   justify-content: center;

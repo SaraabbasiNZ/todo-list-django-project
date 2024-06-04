@@ -23,12 +23,13 @@
                   <div class="job-done-text job-text">
                     <h6>{{todoitem.title}}</h6>
                     <p>{{todoitem.date}}</p>
+                    <p>{{todoitem.description}}</p>
                   </div>
                   {% else %}
                   <input class="check-input form-check-input" type="checkbox" name="checked" value="{{todoitem.id}}" aria-label="...">
                   <div class="job-undone-text job-text">
                     <h6>{{todoitem.title}}</h6>
-                    <p>{{todoitem.date}}</p>
+                    <p class="todo-date">{{todoitem.date}}</p>
                     <p>{{todoitem.description}}</p>
                   </div>
                   {% endif %}
