@@ -1,5 +1,38 @@
 {% extends 'base.html' %}
 {% block title %} todo list app {% endblock %}
 {% block content %}
-<h1>Home template</h1>
+<div class="home-container">
+    <div class="jumbotron mt-4">
+        <h1 class="display-4">Welcome to Todo App!</h1>
+        <p class="lead">Effortlessly manage your tasks and stay organized.</p>
+        <hr class="my-4">
+        <div class="features">
+            <h2>Features</h2>
+            <ul>
+                <li><strong>Create Tasks:</strong> Easily add new tasks with titles, descriptions, and due dates.</li>
+                <li><strong>Edit Tasks:</strong> Update your tasks whenever necessary.</li>
+                <li><strong>Mark as Completed:</strong> Check off tasks as you complete them.</li>
+                <li><strong>Delete Tasks:</strong> Remove tasks you no longer need.</li>
+            </ul>
+        </div>
+        <div class="instructions mt-4">
+            <h2>Getting Started</h2>
+            <p>To start using the Todo App, you need to create an account or log in:</p>
+            <ul>
+                <li><strong>Sign Up:</strong> Create a new account by clicking the "Sign Up" button below.</li>
+                <li><strong>Log In:</strong> If you already have an account, log in to access your tasks.</li>
+                <li>Once logged in, you can view, add, edit, and delete your tasks easily.</li>
+            </ul>
+            <p class="lead mt-4">
+                {% if user.is_authenticated %}
+                <a class="btn btn-primary btn-lg" href="{% url 'todo_app:todo_list' %}" role="button">View Your Todo List</a>
+                {% else %}
+                <a class="btn btn-primary btn-lg" href="{% url 'accounts:login' %}" role="button">Log In</a>
+                <a class="btn btn-secondary btn-lg" href="{% url 'accounts:signup' %}" role="button">Sign Up</a>
+                <p class="mt-3">Please log in or sign up to start managing your tasks.</p>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+</div>
 {% endblock %}
