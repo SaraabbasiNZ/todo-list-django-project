@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import TodoItem
+from .models import TodoItem, Category
 from django.contrib.auth.decorators import login_required
 from .forms import TodoItemForm
 
@@ -30,45 +30,35 @@ def todo_list_view(request):
 @login_required(login_url='/accounts/login')
 def todo_item_create(request):
     user = request.user
+    categories = Category.objects.all()
     if request.method == 'POST':
         form = TodoItemForm(request.POST)
         if form.is_valid():
-            instance = form.save(commit= False)
+            instance = form.save(commit=False)
             instance.owner = user
             instance.save()
             return redirect('todo_app:todo_list')
     else:
-        form = TodoItemForm()
-    return render(request, 'todo_app/create_todo_item.html', {'form':form})
+        form = TodoItemForm(categories=categories)    
+    return render(request, 'todo_app/create_todo_item.html', {'form':form, 'categories': categories})
 
 
 @login_required(login_url='/accounts/login')
 def edit_todo_item(request, id):
     todo_item = get_object_or_404(TodoItem, id=id, owner=request.user)
+    categories = Category.objects.all()
     if request.method == 'POST':
         form = TodoItemForm(request.POST, instance=todo_item)
         if form.is_valid():
             form.save()
             return redirect('todo_app:todo_list')
     else:
-        form = TodoItemForm(instance=todo_item)
-    return render(request, 'todo_app/edit_todo_item.html', {'form': form})
+        form = TodoItemForm(instance=todo_item, categories=categories)    
+    return render(request, 'todo_app/edit_todo_item.html', {'form': form, 'categories': categories})
 
-
-#def delete_todo_item(request, id):
-#    try:
-#        item = TodoItem.objects.get(id = id)
-#    except:
-#        return redirect('todo_app:todo_list')
-#    if item.owner == request.user:
-#        item.delete()
-#        return redirect('todo_app:todo_list')
-#    else:
-#        return redirect('todo_app:todo_list')
 
 def delete_todo_item(request, id):
     item = get_object_or_404(TodoItem, id=id)
-
     if request.method == 'POST':
         if item.owner == request.user:
             item.delete()

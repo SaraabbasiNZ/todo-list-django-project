@@ -13,7 +13,16 @@
         <div class='input-container'>
             <label for="id_description">{{ form.description.label }}</label>
             <textarea class="form-control" name="description" id="id_description">{{ form.instance.description }}</textarea>
-            <p class='helper-text'>Edit the description for your task if needed. Optional.</p>
+            <p class='helper-text'>Edit the description for your task if needed. (optional)</p>
+        </div>
+        <div class='input-container'>
+            <label for="id_category">{{ form.category.label }}</label>
+            <select class="form-control" name="category" id="id_category">
+                {% for category in categories %}
+                    <option value="{{ category.pk }}" {% if category.pk == form.instance.category.pk %} selected {% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <p class='helper-text'>Select a category for your task.</p>
         </div>
         <div class='input-container'>
             <label for="id_date">{{ form.date.label }}</label>
@@ -21,7 +30,7 @@
             {% for error in form.date.errors %}
             <p class='error-msg'>{{ error }}</p>
             {% endfor %}
-            <p class='helper-text'>Edit the date and time for your task if needed. Not required!</p>
+            <p class='helper-text'>Edit the date and time for your task if needed. (optional)</p>
         </div>
         <button class='btn btn-primary' type="submit">Save Changes</button>
         <a href="{% url 'todo_app:todo_list' %}" class="btn btn-secondary">Cancel</a>
