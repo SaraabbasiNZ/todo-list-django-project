@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from .models import TodoItem, Category
 from django.contrib.auth.decorators import login_required
 from .forms import TodoItemForm
@@ -21,7 +22,7 @@ def todo_list_view(request):
                 TodoItem.objects.filter(id = todo_item.id).update(checked=True)
             else:
                 TodoItem.objects.filter(id = todo_item.id).update(checked=False)
-        return redirect('/list')
+        return redirect(reverse('todo_app:todo_list'))
     
     todo_list_len = len(query)
     return render(request, 'todo_app/todo_list.html', {'todolist': query,'todo_list_len': todo_list_len})
