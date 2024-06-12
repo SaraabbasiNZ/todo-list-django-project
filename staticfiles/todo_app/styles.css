@@ -1,0 +1,274 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+
+*,
+::after,
+::before {
+  margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", Arial, sans-serif;
+}
+
+
+/* Navbar Styles */
+.navbar {
+  background-color: #48494B !important;
+}
+
+.navbar .navbar-brand,
+.navbar .nav-link,
+.navbar .btn-link {
+  color: #ffffff !important;
+}
+
+.navbar .nav-link:hover,
+.navbar .btn-link:hover {
+  color: #A9A9A9 !important;
+}
+
+.navbar-slash {
+  color: white;
+  margin: 0;
+}
+
+
+/* Logo Styles */
+.logo {
+  font-size: 1.5em;
+  font-weight: bold;
+  color: #ffffff !important;
+}
+
+
+/* Home Styles */
+.home-container {
+  display: flex;
+  background-color: #f8f9fa;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  width: 100%;
+  padding: 20px;
+}
+
+.jumbotron {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* max-width: 800px; */
+  width: 100%;
+  text-align: center;
+}
+
+.jumbotron h1 {
+  font-size: 3rem;
+  color: #8c8c8c;
+}
+
+.jumbotron .lead {
+  font-size: 1.5rem;
+  color: #48494B;
+}
+
+.jumbotron hr {
+  margin: 20px 0;
+}
+
+.features, .instructions {
+  text-align: left;
+}
+
+.features h2, .instructions h2 {
+  font-size: 2rem;
+  color: #0d6efd;
+  margin-bottom: 10px;
+}
+
+.features ul, .instructions ul {
+  list-style: disc;
+  padding-left: 20px;
+}
+
+.features ul li, .instructions ul li {
+  font-size: 1.2rem;
+  color: #48494B;
+  margin-bottom: 10px;
+}
+
+.jumbotron .btn {
+  margin: 10px;
+  font-size: 1.2rem;
+}
+
+
+/* Create page */
+.create-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+  width: 70%;
+  padding-top: 30px;
+}
+
+.create-todo-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.helper-text {
+  font-size: 13px;
+  color: #919191;
+}
+
+.create-todo-form button {
+  margin-right: 10px;
+}
+
+.error-msg {
+  color: red;
+}
+
+
+/* Edit page */
+.edit-form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+  width: 70%;
+  padding-top: 30px;
+}
+
+.edit-todo-form {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.edit-todo-form button {
+  margin-right: 10px;
+}
+
+
+/* Todo_list page */
+.todo-list-container {
+  width: 100%;
+}
+
+.todo-list {
+  min-height: 60vh;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.delete-todo-item {
+  text-align: end;
+  flex-grow: 1;
+}
+
+.list-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
+
+.todo-item-content {
+  display: flex;
+}
+
+.todo-item-content input {
+  margin-right: 10px;
+}
+
+.todo-item-action {
+  display: flex;
+}
+
+.todo-item-action a {
+  margin-right: 5px;
+}
+
+.job-done-text {
+  text-decoration: line-through 1px;
+  font-weight: normal;
+  color: #919191;
+}
+
+.job-done-input:checked {
+  background-color: #8c8c8c;
+}
+
+.todo-date {
+  color: #0d6efd;
+}
+
+.job-text h6 {
+  font-size: 17px;
+  margin: 1px 0;
+  margin-left: 40px;
+}
+
+.job-text p {
+  font-size: 11px;
+  margin: 1px 0;
+  margin-left: 40px;
+}
+
+
+/* Confirm_delete page */
+.confirm-delete-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 200px;
+}
+
+.confirm-delete-container h1 {
+  margin-bottom: 40px;
+}
+
+.confirm-delete-container form {
+  display: flex;
+  align-items: center;
+}
+
+.confirm-delete-container button {
+  margin-right: 10px;
+}
+
+
+/* Footer Styles */
+footer {
+  background-color: #48494B;
+  text-align: center;
+  padding: 5px 0;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+footer p {
+  color: #ffffff;
+  font-size: 14px;
+  margin-bottom: 0;
+}
