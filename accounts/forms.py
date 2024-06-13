@@ -1,4 +1,3 @@
-# accounts/forms.py
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -14,3 +13,16 @@ class CustomUserCreationForm(UserCreationForm):
             'password1': 'Your password must contain at least 8 characters, and should not be entirely numeric.',
             'password2': 'Enter the same password as before, for verification.',
         }
+
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("This email is already in use.")
+        return email
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.email = self.cleaned_data['email']
+        if commit:
+            user.save()
+        return user
