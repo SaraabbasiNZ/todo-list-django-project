@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from accounts.forms import CustomUserCreationForm
 
 class CustomUserCreationFormTest(TestCase):
-
     def test_valid_form(self):
         # Create a form instance with valid data
         form_data = {

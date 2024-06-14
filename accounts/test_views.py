@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from .forms import CustomUserCreationForm
 
+
 class AccountViewTests(TestCase):
     def setUp(self):
         self.client = Client()

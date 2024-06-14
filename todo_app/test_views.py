@@ -3,8 +3,8 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from .models import TodoItem, Category
 
-class TodoViewsTest(TestCase):
 
+class TodoViewsTest(TestCase):
     def setUp(self):
         self.client = Client()
         self.user = User.objects.create_user(username='testuser', password='testpass')

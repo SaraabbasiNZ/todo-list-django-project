@@ -5,7 +5,6 @@ from .models import TodoItem, Category
 from datetime import timedelta
 
 class TodoItemFormTest(TestCase):
-
     def setUp(self):
         # Set up initial data for categories
         self.category1 = Category.objects.create(name='Work')

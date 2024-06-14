@@ -2,8 +2,8 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 from .models import Category, TodoItem
 
-class CategoryModelTest(TestCase):
 
+class CategoryModelTest(TestCase):
     def setUp(self):
         self.category = Category.objects.create(name=Category.PERSONAL)
 
@@ -23,7 +23,6 @@ class CategoryModelTest(TestCase):
 
 
 class TodoItemModelTest(TestCase):
-
     def setUp(self):
         self.user = User.objects.create_user(username='testuser', password='testpass')
         self.category = Category.objects.create(name=Category.WORK)

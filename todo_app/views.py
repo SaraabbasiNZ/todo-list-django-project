@@ -4,7 +4,7 @@ from .models import TodoItem, Category
 from django.contrib.auth.decorators import login_required
 from .forms import TodoItemForm
 
-# Create your views here.
+
 def home_view(request):
     return render(request, 'todo_app/home.html')
 
