@@ -25,6 +25,23 @@ class Category(models.Model):
         return self.name
 
 
+class Priority(models.Model):
+    HIGH = 'High'
+    MEDIUM = 'Medium'
+    LOW = 'Low'
+
+    PRIORITY_CHOICES = [
+        (HIGH, 'High'),
+        (MEDIUM, 'Medium'),
+        (LOW, 'Low'),
+    ]
+
+    name = models.CharField(max_length=50, choices=PRIORITY_CHOICES)
+
+    def __str__(self):
+        return self.name
+
+
 class TodoItem(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True)
@@ -32,6 +49,7 @@ class TodoItem(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     date = models.DateTimeField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
+    priority = models.ForeignKey(Priority, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return self.title

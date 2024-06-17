@@ -25,6 +25,15 @@
             <p class='helper-text'>Select a category for your task.</p>
         </div>
         <div class='input-container'>
+            <label for="id_priority">{{ form.priority.label }}</label>
+            <select class="form-control" name="priority" id="id_priority">
+                {% for priority in priorities %}
+                    <option value="{{ priority.id }}">{{ priority.name }}</option>
+                {% endfor %}
+            </select>
+            <p class='helper-text'>Select a priority for your task.</p>
+        </div>
+        <div class='input-container'>
             <label for="id_date">{{form.date.label}}</label>
             <input class="form-control" type="datetime-local" name="date" id="id_date">
             {% for error in form.date.errors %}

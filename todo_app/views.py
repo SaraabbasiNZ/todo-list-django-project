@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
-from .models import TodoItem, Category
+from .models import TodoItem, Category, Priority
 from django.contrib.auth.decorators import login_required
 from .forms import TodoItemForm
 
@@ -32,6 +32,8 @@ def todo_list_view(request):
 def todo_item_create(request):
     user = request.user
     categories = Category.objects.all()
+    priorities = Priority.objects.all()
+
     if request.method == 'POST':
         form = TodoItemForm(request.POST)
         if form.is_valid():
@@ -40,22 +42,24 @@ def todo_item_create(request):
             instance.save()
             return redirect('todo_app:todo_list')
     else:
-        form = TodoItemForm(categories=categories)    
-    return render(request, 'todo_app/create_todo_item.html', {'form':form, 'categories': categories})
+        form = TodoItemForm(categories=categories, priorities=priorities)    
+    return render(request, 'todo_app/create_todo_item.html', {'form':form, 'categories': categories, 'priorities':priorities})
 
 
 @login_required(login_url='/accounts/login')
 def edit_todo_item(request, id):
     todo_item = get_object_or_404(TodoItem, id=id, owner=request.user)
     categories = Category.objects.all()
+    priorities = Priority.objects.all()
+
     if request.method == 'POST':
         form = TodoItemForm(request.POST, instance=todo_item)
         if form.is_valid():
             form.save()
             return redirect('todo_app:todo_list')
     else:
-        form = TodoItemForm(instance=todo_item, categories=categories)    
-    return render(request, 'todo_app/edit_todo_item.html', {'form': form, 'categories': categories})
+        form = TodoItemForm(instance=todo_item, categories=categories, priorities=priorities)    
+    return render(request, 'todo_app/edit_todo_item.html', {'form': form, 'categories': categories, 'priorities':priorities})
 
 
 def delete_todo_item(request, id):
