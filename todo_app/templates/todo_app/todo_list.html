@@ -22,19 +22,19 @@
                   <input class="check-input form-check-input job-done-input" type="checkbox" name="checked" checked value="{{todoitem.id}}" aria-label="...">
                   <div class="job-done-text job-text">
                     <h6>{{todoitem.title}}</h6>
-                    <p>Category: {{ todoitem.category }}</p>
-                    <p>Priority: {{ todoitem.priority }}</p>
-                    <p>{{todoitem.date}}</p>
                     <p>{{todoitem.description}}</p>
+                    <p>Category: {{ todoitem.category }}</p>
+                    <p>{{todoitem.date}}</p>
+                    <p>Priority: {{ todoitem.priority }}</p>
                   </div>
                   {% else %}
                   <input class="check-input form-check-input" type="checkbox" name="checked" value="{{todoitem.id}}" aria-label="...">
                   <div class="job-undone-text job-text">
                     <h6>{{todoitem.title}}</h6>
-                    <p>Category: {{ todoitem.category }}</p>
-                    <p>Priority: {{ todoitem.priority }}</p>
-                    <p class="todo-date">{{todoitem.date}}</p>
                     <p>{{todoitem.description}}</p>
+                    <p>Category: {{ todoitem.category }}</p>
+                    <p class="todo-date">{{todoitem.date}}</p>
+                    <p>Priority: <span class="priority-badge">{{ todoitem.priority }}</span></p>
                   </div>
                   {% endif %}
                 </div>

@@ -235,6 +235,30 @@ body {
   margin-right: 20px;
 }
 
+/* Priority Badge Styles */
+.priority-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background-color: #ffc107;
+  color: #212529;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 20px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  vertical-align: middle;
+}
+
+.job-done-text .priority-badge {
+  text-decoration: line-through 1px; 
+  color: #919191; 
+}
+
+.job-done-input:checked .priority-badge {
+  color: #8c8c8c; 
+}
+
 
 /* Confirm_delete page */
 .confirm-delete-container {
