@@ -12,7 +12,7 @@ def home_view(request):
 @login_required(login_url='/accounts/login')
 def todo_list_view(request):
     user = request.user
-    query = TodoItem.objects.filter(owner = user)
+    query = TodoItem.objects.filter(owner = user).order_by('priority', 'date')
 
     if request.method == 'POST':
         checked_list = request.POST.getlist('checked')
