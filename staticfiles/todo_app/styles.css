@@ -223,15 +223,40 @@ body {
 }
 
 .job-text h6 {
-  font-size: 17px;
+  font-size: 18px;
   margin: 1px 0;
-  margin-left: 40px;
+  margin-left: 30px;
 }
 
 .job-text p {
-  font-size: 11px;
+  font-size: 12px;
   margin: 1px 0;
-  margin-left: 40px;
+  margin-left: 30px;
+  margin-right: 20px;
+}
+
+/* Priority Badge Styles */
+.priority-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  background-color: #ffc107;
+  color: #212529;
+  font-size: 11px;
+  font-weight: bold;
+  border-radius: 20px;
+  text-transform: uppercase;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  vertical-align: middle;
+}
+
+.job-done-text .priority-badge {
+  text-decoration: line-through 1px; 
+  color: #919191; 
+}
+
+.job-done-input:checked .priority-badge {
+  color: #8c8c8c; 
 }
 
 
