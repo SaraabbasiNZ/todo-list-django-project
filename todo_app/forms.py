@@ -18,10 +18,3 @@ class TodoItemForm(forms.ModelForm):
             self.fields['category'].queryset = categories
         if priorities:
             self.fields['priority'].choices = priorities
-
-    def clean_date(self):
-        date = self.cleaned_data.get("date")
-        if date and date < timezone.now():
-            if not self.instance.pk:
-                raise forms.ValidationError("Please enter a date from today or the future.")
-        return date

@@ -1,5 +1,19 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
+from django.core.exceptions import ValidationError
+from django.utils import timezone
+
+
+HIGH = 'High'
+MEDIUM = 'Medium'
+LOW = 'Low'
+
+PRIORITY_CHOICES = [
+    (HIGH, 'High'),
+    (MEDIUM, 'Medium'),
+    (LOW, 'Low'),
+]
 
 
 class Category(models.Model):
@@ -26,16 +40,6 @@ class Category(models.Model):
 
 
 class Priority(models.Model):
-    HIGH = 'High'
-    MEDIUM = 'Medium'
-    LOW = 'Low'
-
-    PRIORITY_CHOICES = [
-        (HIGH, 'High'),
-        (MEDIUM, 'Medium'),
-        (LOW, 'Low'),
-    ]
-
     name = models.CharField(max_length=50, choices=PRIORITY_CHOICES)
 
     def __str__(self):
@@ -53,3 +57,9 @@ class TodoItem(models.Model):
 
     def __str__(self):
         return self.title
+
+
+    def save(self, *args, **kwargs):
+        if self.date and self.date < timezone.now():
+            raise ValidationError("The date cannot be in the past!")
+        super(TodoItem, self).save(*args, **kwargs)

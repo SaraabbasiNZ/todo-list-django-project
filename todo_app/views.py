@@ -3,6 +3,8 @@ from django.urls import reverse
 from .models import TodoItem, Category, Priority
 from django.contrib.auth.decorators import login_required
 from .forms import TodoItemForm
+from django.core.exceptions import ValidationError
+from django.contrib import messages
 
 
 def home_view(request):
@@ -37,10 +39,16 @@ def todo_item_create(request):
     if request.method == 'POST':
         form = TodoItemForm(request.POST)
         if form.is_valid():
-            instance = form.save(commit=False)
-            instance.owner = user
-            instance.save()
-            return redirect('todo_app:todo_list')
+            try:
+                instance = form.save(commit=False)
+                instance.owner = user
+                instance.save()
+                messages.success(request,'Task successfully created')
+                return redirect('todo_app:todo_list')
+            except ValidationError:
+                messages.error(request,'Task Date can not be in the past')
+                form = TodoItemForm(request.POST)
+                return render(request, 'todo_app/create_todo_item.html', {'form':form, 'categories': categories, 'priorities':priorities})
     else:
         form = TodoItemForm(categories=categories, priorities=priorities)    
     return render(request, 'todo_app/create_todo_item.html', {'form':form, 'categories': categories, 'priorities':priorities})
@@ -55,8 +63,14 @@ def edit_todo_item(request, id):
     if request.method == 'POST':
         form = TodoItemForm(request.POST, instance=todo_item)
         if form.is_valid():
-            form.save()
-            return redirect('todo_app:todo_list')
+            try:
+                form.save()
+                messages.success(request,'Task successfully edited')
+                return redirect('todo_app:todo_list')
+            except ValidationError:
+                messages.error(request,'Task Date can not be in the past')
+                form = TodoItemForm(request.POST, instance=todo_item)
+                return render(request, 'todo_app/edit_todo_item.html', {'form': form, 'categories': categories, 'priorities':priorities})
     else:
         form = TodoItemForm(instance=todo_item, categories=categories, priorities=priorities)    
     return render(request, 'todo_app/edit_todo_item.html', {'form': form, 'categories': categories, 'priorities':priorities})
@@ -67,6 +81,7 @@ def delete_todo_item(request, id):
     if request.method == 'POST':
         if item.owner == request.user:
             item.delete()
+            messages.success(request,'Task successfully deleted')
             return redirect('todo_app:todo_list')
         else:
             return redirect('todo_app:todo_list')
