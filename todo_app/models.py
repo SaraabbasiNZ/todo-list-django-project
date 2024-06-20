@@ -54,10 +54,13 @@ class TodoItem(models.Model):
     date = models.DateTimeField(blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
     priority = models.ForeignKey(Priority, on_delete=models.SET_NULL, null=True)
+    is_private = models.BooleanField(default=True)  # New field for private/public
 
     def __str__(self):
         return self.title
 
+    def is_public(self):
+        return not self.is_private
 
     def save(self, *args, **kwargs):
         if self.date and self.date < timezone.now():

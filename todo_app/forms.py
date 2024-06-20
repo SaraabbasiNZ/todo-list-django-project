@@ -8,7 +8,7 @@ class TodoItemForm(forms.ModelForm):
     
     class Meta:
         model = TodoItem
-        fields = ['title', 'description', 'checked', 'date', 'category', 'priority']
+        fields = ['title', 'description', 'checked', 'date', 'category', 'priority', 'is_private']
 
     def __init__(self, *args, **kwargs):
         categories = kwargs.pop('categories', None)

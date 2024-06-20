@@ -41,9 +41,13 @@
             {% endfor %}
             <p class='helper-text'>Here you can pick a date and time for your task if needed. (optional)</p>
         </div>
-    <button class='btn btn-primary' type="submit">Add</button>
-    <a href="{% url 'todo_app:todo_list' %}" class="btn btn-secondary">Cancel</a>
-    
+        <div class='input-container'>
+            <label for="id_is_private">{{form.is_private.label}}</label>
+            <input class="form-check-input" type="checkbox" name="is_private" id="id_is_private">
+            <p class='helper-text'>Check if this task is private.</p>
+        </div>
+        <button class='btn btn-primary' type="submit">Add</button>
+        <a href="{% url 'todo_app:todo_list' %}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 {% endblock %}
