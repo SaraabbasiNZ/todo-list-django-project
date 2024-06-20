@@ -167,6 +167,8 @@ body {
 /* Todo_list page */
 .todo-list-container {
   width: 100%;
+  padding-top: 80px;
+  padding-bottom: 80px;
 }
 
 .todo-list {
