@@ -46,12 +46,15 @@
         </div>
       </nav>
 
-    <div class="container">
-        {% for message in messages %}
-            <div class="alert alert-success">
-                  {{ message }}
-            </div>
-        {% endfor %}
+      <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible">
+                    {{ message }}
+                    <button type="button" class="close" onclick="this.parentElement.style.display='none';">&times;</button>
+                </div>
+            {% endfor %}
+        {% endif %}
         {% block content %}{% endblock %}
     </div>
     <footer>

@@ -33,6 +33,39 @@
                 {% endif %}
             </p>
         </div>
+        <hr class="my-4">
+        <div class="list-container">
+            <div class="todo-list-container">
+                <h2>Public Tasks</h2>
+                <div class="todo-list">
+                  <ul class="list-group">
+                    {% for todoitem in todolist %}
+                        <li class="list-group-item todo-item">
+                          <div class="todo-item-content">
+                            {% if todoitem.checked %}
+                            <div class="job-done-text job-text">
+                              <h6>{{todoitem.title}}</h6>
+                              <p>{{todoitem.description}}</p>
+                              <p>Category: {{ todoitem.category }}</p>
+                              <p>{{todoitem.date}}</p>
+                              <p>Priority: {{ todoitem.priority }}</p>
+                            </div>
+                            {% else %}
+                            <div class="job-undone-text job-text">
+                              <h6>{{todoitem.title}}</h6>
+                              <p>{{todoitem.description}}</p>
+                              <p>Category: {{ todoitem.category }}</p>
+                              <p class="todo-date">{{todoitem.date}}</p>
+                              <p>Priority: <span class="priority-badge">{{ todoitem.priority }}</span></p>
+                            </div>
+                            {% endif %}
+                          </div>
+                        </li>
+                    {% endfor %}
+                  </ul>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

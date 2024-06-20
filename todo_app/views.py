@@ -8,7 +8,8 @@ from django.contrib import messages
 
 
 def home_view(request):
-    return render(request, 'todo_app/home.html')
+    todo_list = TodoItem.objects.filter(is_private = False).order_by('priority', 'date')
+    return render(request, 'todo_app/home.html', {'todolist': todo_list})
 
 
 @login_required(login_url='/accounts/login')
