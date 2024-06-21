@@ -1,59 +1,81 @@
 from django.test import TestCase
+from django.utils import timezone
+from django.core.exceptions import ValidationError
+from .models import Category, Priority, TodoItem
 from django.contrib.auth.models import User
-from .models import Category, TodoItem
 
 
 class CategoryModelTest(TestCase):
-    def setUp(self):
-        self.category = Category.objects.create(name=Category.PERSONAL)
-
-    def test_category_creation(self):
-        self.assertIsInstance(self.category, Category)
-        self.assertEqual(self.category.name, 'Personal')
-
     def test_category_str(self):
-        self.assertEqual(str(self.category), 'Personal')
+        # Test Category model __str__ method returns the name
+        category = Category.objects.create(name='Work')
+        self.assertEqual(str(category), 'Work')
 
-    def test_category_choices(self):
-        choices = [Category.PERSONAL, Category.WORK, Category.STUDY, Category.HEALTH, Category.HOME, Category.OTHER]
-        for choice in choices:
-            category = Category(name=choice)
-            category.full_clean()
-            self.assertEqual(category.name, choice)
+
+class PriorityModelTest(TestCase):
+    def test_priority_str(self):
+        # Test Priority model __str__ method returns the name
+        priority = Priority.objects.create(name='High')
+        self.assertEqual(str(priority), 'High')
 
 
 class TodoItemModelTest(TestCase):
     def setUp(self):
-        self.user = User.objects.create_user(username='testuser', password='testpass')
-        self.category = Category.objects.create(name=Category.WORK)
-        self.todo_item = TodoItem.objects.create(
-            title='Test Todo',
-            description='This is a test todo item.',
-            checked=False,
+        self.user = User.objects.create_user(username='testuser', password='12345')
+        self.category = Category.objects.create(name='Work')
+        self.priority = Priority.objects.create(name='High')
+
+    def test_todoitem_str(self):
+        # Test TodoItem model __str__ method returns the title
+        todo_item = TodoItem.objects.create(
+            title='Finish project',
+            description='Complete the final draft of the project',
             owner=self.user,
-            date=None,
-            category=self.category
+            category=self.category,
+            priority=self.priority
         )
+        self.assertEqual(str(todo_item), 'Finish project')
 
-    def test_todo_item_creation(self):
-        self.assertIsInstance(self.todo_item, TodoItem)
-        self.assertEqual(self.todo_item.title, 'Test Todo')
-        self.assertEqual(self.todo_item.description, 'This is a test todo item.')
-        self.assertFalse(self.todo_item.checked)
-        self.assertEqual(self.todo_item.owner, self.user)
-        self.assertIsNone(self.todo_item.date)
-        self.assertEqual(self.todo_item.category, self.category)
+    def test_is_public(self):
+        # Test TodoItem is_public method returns correct boolean
+        todo_item = TodoItem.objects.create(
+            title='Public task',
+            owner=self.user,
+            category=self.category,
+            priority=self.priority,
+            is_private=False
+        )
+        self.assertTrue(todo_item.is_public())
 
-    def test_todo_item_str(self):
-        self.assertEqual(str(self.todo_item), 'Test Todo')
+        private_todo_item = TodoItem.objects.create(
+            title='Private task',
+            owner=self.user,
+            category=self.category,
+            priority=self.priority,
+            is_private=True
+        )
+        self.assertFalse(private_todo_item.is_public())
 
-    def test_todo_item_foreign_key_user(self):
-        self.assertEqual(self.todo_item.owner.username, 'testuser')
+    def test_save_with_past_date(self):
+        # Test saving TodoItem with a past date raises ValidationError
+        with self.assertRaises(ValidationError):
+            past_date = timezone.now() - timezone.timedelta(days=1)
+            TodoItem.objects.create(
+                title='Past due task',
+                owner=self.user,
+                category=self.category,
+                priority=self.priority,
+                date=past_date
+            )
 
-    def test_todo_item_foreign_key_category(self):
-        self.assertEqual(self.todo_item.category.name, 'Work')
-
-    def test_todo_item_toggle_checked(self):
-        self.todo_item.checked = True
-        self.todo_item.save()
-        self.assertTrue(self.todo_item.checked)
+    def test_save_with_future_date(self):
+        # Test saving TodoItem with a future date sets the date correctly
+        future_date = timezone.now() + timezone.timedelta(days=1)
+        todo_item = TodoItem.objects.create(
+            title='Future task',
+            owner=self.user,
+            category=self.category,
+            priority=self.priority,
+            date=future_date
+        )
+        self.assertEqual(todo_item.date, future_date)

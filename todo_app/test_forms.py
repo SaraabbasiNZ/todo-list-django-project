@@ -1,65 +1,52 @@
 from django.test import TestCase
-from django.utils import timezone
-from .forms import TodoItemForm
-from .models import TodoItem, Category
-from datetime import timedelta
+from todo_app.forms import TodoItemForm
+from todo_app.models import Category, Priority, TodoItem
 
 class TodoItemFormTest(TestCase):
+
     def setUp(self):
-        # Set up initial data for categories
-        self.category1 = Category.objects.create(name='Work')
-        self.category2 = Category.objects.create(name='Personal')
+        # Create sample data for testing
+        self.category_personal = Category.objects.create(name='Personal')
+        self.category_work = Category.objects.create(name='Work')
+        self.priority_high = Priority.objects.create(name='High')
+        self.priority_low = Priority.objects.create(name='Low')
 
-    def test_valid_form(self):
-        data = {
+    def test_form_with_categories_and_priorities(self):
+        # Test form initialization with custom categories and priorities
+        custom_categories = Category.objects.filter(name__in=['Personal', 'Work'])
+        custom_priorities = [(p.id, p.name) for p in Priority.objects.all()]
+
+        form = TodoItemForm(categories=custom_categories, priorities=custom_priorities)
+
+        self.assertEqual(len(form.fields['category'].queryset), 2)
+        self.assertEqual(len(form.fields['priority'].choices), len(custom_priorities))
+
+    def test_form_valid_data(self):
+        # Test valid form data
+        form_data = {
             'title': 'Test Todo',
-            'description': 'This is a test todo.',
+            'description': 'Testing TodoItemForm',
             'checked': False,
-            'date': timezone.now() + timedelta(days=1),
-            'category': self.category1.id
+            'date': '2024-06-25',  
+            'category': self.category_personal.id,
+            'priority': self.priority_high.id,
+            'is_private': True,
         }
-        form = TodoItemForm(data=data)
+        form = TodoItemForm(data=form_data)
         self.assertTrue(form.is_valid())
 
-    def test_invalid_form_past_date(self):
-        past_date = timezone.now() - timedelta(days=1)
-        data = {
-            'title': 'Test Todo',
-            'description': 'This is a test todo with a past date.',
+    def test_form_invalid_data(self):
+        # Test invalid form data (e.g., missing required fields)
+        form_data = {
+            'title': '',  
+            'description': 'Testing TodoItemForm',
             'checked': False,
-            'date': past_date,
-            'category': self.category1.id
+            'date': '2024-06-25',  
+            'category': '',  
+            'priority': self.priority_high.id,
+            'is_private': True,
         }
-        form = TodoItemForm(data=data)
+        form = TodoItemForm(data=form_data)
         self.assertFalse(form.is_valid())
-        self.assertIn('date', form.errors)
-        self.assertEqual(form.errors['date'], ['Please enter a date from today or the future.'])
-
-    def test_invalid_form_missing_category(self):
-        data = {
-            'title': 'Test Todo',
-            'description': 'This is a test todo without a category.',
-            'checked': False,
-            'date': timezone.now() + timedelta(days=1),
-        }
-        form = TodoItemForm(data=data)
-        self.assertFalse(form.is_valid())
+        self.assertIn('title', form.errors)
         self.assertIn('category', form.errors)
-        self.assertEqual(form.errors['category'], ['This field is required.'])
-
-    def test_custom_category_queryset(self):
-        custom_categories = Category.objects.filter(name='Personal')
-        form = TodoItemForm(categories=custom_categories)
-        self.assertEqual(list(form.fields['category'].queryset), list(custom_categories))
-
-    def test_valid_form_with_custom_category_queryset(self):
-        custom_categories = Category.objects.filter(name='Personal')
-        data = {
-            'title': 'Test Todo',
-            'description': 'This is a test todo.',
-            'checked': False,
-            'date': timezone.now() + timedelta(days=1),
-            'category': custom_categories.first().id
-        }
-        form = TodoItemForm(data=data, categories=custom_categories)
-        self.assertTrue(form.is_valid())
