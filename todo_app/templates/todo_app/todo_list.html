@@ -7,7 +7,7 @@
 <div class="list-container">
   {% if todo_list_len == 0 %}
   <div>
-    <h3>Nothing here ...</h3>
+    <h3>No Tasks Created Yet!</h3>
     <a class='link' href="{% url 'todo_app:todo_item_create' %}">You can add a task here</a>
   </div>
   {% else %}
