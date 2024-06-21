@@ -52,9 +52,17 @@ class TodoItem(models.Model):
     checked = models.BooleanField(default=False)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     date = models.DateTimeField(blank=True, null=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True)
-    priority = models.ForeignKey(Priority, on_delete=models.SET_NULL, null=True)
-    is_private = models.BooleanField(default=True)  # New field for private/public
+    category = models.ForeignKey(
+        Category,
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    priority = models.ForeignKey(
+        Priority,
+        on_delete=models.SET_NULL,
+        null=True
+    )
+    is_private = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title

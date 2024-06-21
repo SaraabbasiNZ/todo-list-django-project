@@ -1,5 +1,8 @@
 from django.urls import path
-from .views import home_view, todo_list_view, todo_item_create, edit_todo_item, delete_todo_item
+from .views import (
+    home_view, todo_list_view, todo_item_create,
+    edit_todo_item, delete_todo_item
+)
 
 
 app_name = 'todo_app'
