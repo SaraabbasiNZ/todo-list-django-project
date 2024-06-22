@@ -48,7 +48,7 @@ class Priority(models.Model):
 
 class TodoItem(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField(blank=True)
+    description = models.TextField(max_length=250, blank=True)
     checked = models.BooleanField(default=False)
     owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     date = models.DateTimeField(blank=True, null=True)
