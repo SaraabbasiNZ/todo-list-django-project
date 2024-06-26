@@ -23,7 +23,7 @@ Built using Django, this application provides a user-friendly interface where yo
     - [Existing Features](#existing-features)
         - [Non logged in user](#non-logged-in-user)
             - [The Landing page And General Site Content](#the-landing-page-and-general-site-content)
-            - [Login](#login)
+            - [Log In](#log-in)
             - [Sign Up](#sign-up)
         - [Logged in User](#logged-in-user)
             - [Todo list](#todo-list)
@@ -35,13 +35,11 @@ Built using Django, this application provides a user-friendly interface where yo
 - [Technologies Used](#technologies-used)
 - [Testing](#testing)
 - [Deployment](#deployment)
-    - [Deploying on GitHub Pages](#deploying-on-github-pages)
+    - [Cloning this repository](#cloning-this-repository)
     - [The ElephantSQL Database](#the-elephantsql-database)
 - [Credits](#credits)
-    - [Content](#content)
-        - [Images](#images)
     - [Education](#education)
-- [Acknowledgements](#acknoledgements)
+- [Acknowledgements](#acknowledgements)
 
 [Back to Top](#todo-list-app)
 
@@ -192,7 +190,7 @@ The landing page provides non-logged-in/non-registered users with instructions, 
 
 Additionally, the landing page features two primary calls to action: Signup and Login. It is designed to be responsive across various screen sizes, ensuring optimal usability on mobile devices and tablets. 
 
-### Login
+### Log In
 
 ![Login](documentation/readme-images/login-page.png " Login image ")
 
@@ -309,36 +307,61 @@ Testing detail can be found [here](TESTING.md)
 
 # Deployment
 
-The project is deployed to GitHub via Gitpod Terminal. Then it is connected to the Heroku app to be reached via a web browser for user convenience. To enable this, a special Code Institute template was cloned and used [Code institute template](https://github.com/Code-Institute-Org/python-essentials-template).
+## Deployment - Heroku
 
-## Cloning The Repository
+To deploy this page to Heroku from its GitHub repository, the following steps were taken:
 
-To clone the repository using GitHub the following steps were taken:
+### Create the Heroku App:
+- Log in to [Heroku](https://dashboard.heroku.com/apps) or create an account.
+- On the main page click the button labelled New in the top right corner and from the drop-down menu select "Create New App".
+- Enter a unique and meaningful app name.
+- Next select your region.
+- Click on the Create App button.
 
-1. In the repository, select the "code" tab.
-2. Select "HTTPS" in the dropdown menu.
-3. Click the 'copy URL to dashboard button.
-4. Open your chosen IDE
-5. Create a new workspace and paste in the copied URL
-6. Press enter
+### Attach the Postgres database:
+- In the Resources tab, under add-ons, type in Postgres and select the Heroku Postgres option.
+- Copy the DATABASE_URL located in Config Vars in the Settings Tab.
 
-## Deploying on GitHub Pages
+### Prepare the environment and settings.py file:
+- In your GitPod workspace, create an env.py file in the main directory.
+- Add the DATABASE_URL value and your chosen SECRET_KEY value to the env.py file. 
+- Update the settings.py file to import the env.py file and add the SECRETKEY and DATABASE_URL file paths.
+- Comment out the default database configuration.
+- Save files and make migrations.
+- Add Cloudinary URL to env.py
+- Add the cloudinary libraries to the list of installed apps.
+- Add the STATIC files settings - the url, storage path, directory path, root path, media url and default file storage path.
+- Link the file to the templates directory in Heroku.
+- Change the templates directory to TEMPLATES_DIR
+- Add Heroku to the ALLOWED_HOSTS list the format ['app_name.heroku.com', 'localhost']
 
-To deploy this page to Heroku from its Codeanywher repository, the following steps were taken:
+### Create files / directories
+- Create requirements.txt file
+- Create three directories in the main directory; media, storage and templates.
+- Create a file named "Procfile" in the main directory and add the following: web: gunicorn project-name.wsgi
 
-1. Get Python Essentials Template from Code Institute [P3 Template](https://github.com/Code-Institute-Org/p3-template "p3 template link")
-2. Create a new repository using the P3 template
-3. Copy the repo URL and copy it into Gitpod to create a new workspace
-4. Install Django - add to requirements file
-5. Create Procfile and add guricorn
-6. Log in to Heroku
-7. Click 'New' - 'Create new app'
-8. Enter a name for the application and select the region
-9. Click 'Create App'
-10. Go to Settings and connect to GitHub - choose the correct repository
-11. Click 'Reveal config vars' and add DISABLE_COLLECTSTATIC as the key with a value of 1
-12. Go to Deploy and scroll down, click on 'Deploy Branch' to manually deploy
-13. Once the app has deployed, click 'Open App' at the top of the page
+### Update Heroku Config Vars
+Add the following Config Vars in Heroku:
+- SECRET_KEY value 
+- CLOUDINARY_URL
+- PORT = 8000
+- DISABLE_COLLECTSTATIC = 1
+
+### Deploy
+- NB: Ensure in Django settings, DEBUG is False
+- Go to the deploy tab on Heroku and connect to GitHub, then to the required repository. 
+- Scroll to the bottom of the deploy page and either click Enable Automatic Deploys for automatic deploys or Deploy Branch to deploy manually. Manually deployed branches will need re-deploying each time the repo is updated.
+- Click View to view the deployed site.
+
+## Cloning this repository
+To clone this repository follow the below steps: 
+
+1. Locate the repository at this link [The Easy Eater](https://github.com/AliOKeeffe/PP4_My_Meal_Planner). 
+2. Under **'Code'**, see the different cloning options, HTTPS, SSH, and GitHub CLI. Click the prefered cloning option, and then copy the link provided. 
+3. Open **Terminal**.
+4. In Terminal, change the current working directory to the desired location of the cloned directory.
+5. Type **'git clone'**, and then paste the URL copied from GitHub earlier. 
+6. Type **'Enter'** to create the local clone. 
 
 ## The ElephantSQL Database
 ElephantSQL PostgreSQL Database was used for this project, to set up a database the following steps were taken:
@@ -392,4 +415,4 @@ DATABASES = {
 - Friends and family who helped test the site on different devices and give real world user feedback.
 
 
-[Back to Top](#todo-list-app) swim
+[Back to Top](#todo-list-app)
